@@ -11,7 +11,7 @@ export default function Index() {
     <>
       <main className={clsx(isLightTheme ? ThemeKeys.LIGHT : ThemeKeys.DARK)}>
         <h1>Theme: {theme}</h1>
-        <Link href="/about">Go To About</Link>
+        <Link href="/">Go Home</Link>
       </main>
       <div className="button-container">
         <button
