@@ -33,24 +33,21 @@ export default function ThemeProvider({
   const [themeValue, setTheme] = useState(theme || ThemeKeys.LIGHT)
 
   const changeTheme = useCallback(async () => {
-    const res = await fetchAPI('/theme/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        theme: themeValue === ThemeKeys.LIGHT ? ThemeKeys.DARK : ThemeKeys.LIGHT
-      }),
-      credentials: 'include'
-    })
+    try {
+      const res = await fetchAPI('/theme/update', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        credentials: 'include'
+      })
 
-    if (!res.ok) {
-      console.error('Unable to save and update theme')
-      return
+      if (!res.ok) throw Error('Unable to save and update theme')
+
+      const data = await res.json()
+      setTheme(data.theme)
+    } catch (error) {
+      console.error(error)
     }
-
-    const data = await res.json()
-
-    setTheme(data.theme)
-  }, [themeValue])
+  }, [])
 
   return (
     <ThemeContext.Provider value={{ theme: themeValue, changeTheme }}>

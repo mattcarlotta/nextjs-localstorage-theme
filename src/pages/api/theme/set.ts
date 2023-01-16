@@ -9,7 +9,7 @@ import getJWTSecret from '../../../utils/jwtSecret'
 const expiration = 2592000
 
 export const cookieOptions = {
-  httpOnly: false,
+  httpOnly: true,
   maxAge: expiration,
   path: '/',
   secure: process.env.NODE_ENV === 'production'

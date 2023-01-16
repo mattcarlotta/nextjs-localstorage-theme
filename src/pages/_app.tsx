@@ -25,14 +25,15 @@ function App({
 }
 
 App.getInitialProps = async ({ ctx }: { ctx: NextPageContext }) => {
-  const cookie = ctx?.req ? String(ctx.req.headers.cookie) : document.cookie
+  const cookie = String(ctx?.req?.headers.cookie)
 
   const res = await fetchAPI('/theme', {
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      cookie
-    }
+      ...(cookie ? { cookie } : {})
+    },
+    credentials: 'include'
   })
 
   try {
