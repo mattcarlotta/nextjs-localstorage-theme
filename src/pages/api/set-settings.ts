@@ -29,7 +29,7 @@ export default async function saveSettings(
     JWT_SECRET_KEY
   )
 
-  await redis.set(id, defaultValue)
+  await redis.set(id, defaultValue, 'ex', 2592000)
 
   res.setHeader('Set-Cookie', serialize('token', signedToken, cookieOptions))
 

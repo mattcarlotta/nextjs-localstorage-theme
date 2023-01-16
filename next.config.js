@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   serverRuntimeConfig: {
     jwtSecretKey: process.env.JWT_SECRET_KEY
   }
