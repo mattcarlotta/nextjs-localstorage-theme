@@ -30,15 +30,15 @@ App.getInitialProps = async ({ ctx }: { ctx: NextPageContext }) => {
   const res = await fetchAPI('/theme', {
     method: 'GET',
     headers: {
-      Accept: 'application/json',
+      Accept: 'text/plain',
       ...(cookie ? { cookie } : {})
     },
     credentials: 'include'
   })
 
   try {
-    const data = await res.json()
-    return { theme: data.theme }
+    const theme = (await res.text()) as ThemeKeys
+    return { theme }
   } catch (e) {
     return { theme: null }
   }
