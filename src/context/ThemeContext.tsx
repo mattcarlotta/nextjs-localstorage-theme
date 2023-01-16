@@ -5,12 +5,8 @@ import {
   useContext,
   useState
 } from 'react'
+import { ThemeKeys } from '../types'
 import fetchAPI from '../utils/fetchAPI'
-
-enum ThemeKeys {
-  DARK = 'dark',
-  LIGHT = 'light'
-}
 
 export const ThemeContext = createContext({
   theme: ThemeKeys.LIGHT,
@@ -37,7 +33,7 @@ export default function ThemeProvider({
   const [themeValue, setTheme] = useState(theme || ThemeKeys.LIGHT)
 
   const changeTheme = useCallback(async () => {
-    const res = await fetchAPI('/api/update-settings', {
+    const res = await fetchAPI('/theme/update', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
